@@ -19,7 +19,7 @@
 
 如果 Deploy to Cloudflare 按钮提示无法创建 Git 仓库，说明按钮的模板克隆流程失败。此时不要重试创建仓库，直接走上面的“Import a repository”流程。
 
-注意：Git 集成不会替你猜测 D1 数据库 ID。首次部署前仍需要创建 D1/R2，并把 D1 的 `database_id` 写入 `wrangler.toml` 后提交。
+注意：Git 集成不会替你猜测 D1 数据库 ID。首次部署前仍需要创建 D1/R2，并把 D1 的 `database_id` 写入 `wrangler.toml` 后提交。当前生产 D1 database_id 为 `eadc9ac1-4b24-45e1-b00b-cd32b3c081d7`。
 
 ## 1. 登录 Cloudflare
 

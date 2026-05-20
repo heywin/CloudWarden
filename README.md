@@ -50,10 +50,11 @@ CloudWarden 是一个面向个人使用的 Bitwarden 兼容服务，运行在 Cl
 2. 创建 R2 bucket `cloudwarden-attachments`。
 3. 将 D1 的 `database_id` 填入 `wrangler.toml` 后提交到 GitHub。
 4. 在 Worker 的 Settings/Variables 里添加 secret：`JWT_SECRET`、`ADMIN_TOKEN`。
-5. 执行 D1 迁移：
+5. 执行 D1 迁移，然后重新部署：
 
 ```bash
 npm run db:migrate:remote
+npm run deploy
 ```
 
 完成后，每次 push 到 `main`，Cloudflare Workers Builds 会自动构建并部署。

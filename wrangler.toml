@@ -9,7 +9,7 @@ enabled = true
 [[d1_databases]]
 binding = "DB"
 database_name = "cloudwarden-db"
-database_id = "replace-with-cloudflare-d1-database-id"
+database_id = "eadc9ac1-4b24-45e1-b00b-cd32b3c081d7"
 migrations_dir = "migrations"
 
 [[r2_buckets]]
