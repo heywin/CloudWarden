@@ -1,0 +1,21 @@
+name = "cloudwarden"
+main = "src/index.ts"
+compatibility_date = "2026-05-01"
+compatibility_flags = ["nodejs_compat"]
+
+[observability]
+enabled = true
+
+[[d1_databases]]
+binding = "DB"
+database_name = "cloudwarden-db"
+database_id = "replace-with-cloudflare-d1-database-id"
+migrations_dir = "migrations"
+
+[[r2_buckets]]
+binding = "ATTACHMENTS"
+bucket_name = "cloudwarden-attachments"
+
+[vars]
+SIGNUPS_ALLOWED = "true"
+SERVER_NAME = "CloudWarden"
