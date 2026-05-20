@@ -29,23 +29,34 @@ CloudWarden 是一个面向个人使用的 Bitwarden 兼容服务，运行在 Cl
 
 ## 快速开始
 
-### 方式一：页面点击部署
+### 方式一：从现有 GitHub 仓库部署
 
-点击上方 **Deploy to Cloudflare** 按钮，然后按页面提示完成：
+如果 **Deploy to Cloudflare** 按钮提示 “Cloudflare 目前无法创建 Git 仓库”，请不要继续重试按钮。CloudWarden 已经有现成仓库，直接在 Cloudflare Dashboard 导入现有仓库更稳：
 
-1. 登录 Cloudflare。
-2. 授权 Cloudflare 访问 GitHub。
-3. 选择或创建要部署的仓库。
-4. 保持 Worker 名称为 `cloudwarden`。
-5. 填写 `JWT_SECRET` 和 `ADMIN_TOKEN`。
-6. 部署完成后，在 Cloudflare 控制台进入该 Worker，确认 D1 和 R2 绑定已创建。
-7. 如果 D1 迁移没有自动执行，在本地或 Cloudflare 控制台执行一次迁移：
+1. 打开 Cloudflare Dashboard。
+2. 进入 **Workers & Pages**。
+3. 点击 **Create application**。
+4. 选择 **Import a repository**。
+5. 授权 GitHub，并选择 `heywin/CloudWarden`。
+6. Project/Worker 名称填写 `cloudwarden`，需要和 `wrangler.toml` 里的 `name = "cloudwarden"` 一致。
+7. Build command 留空或填写 `npm run typecheck`。
+8. Deploy command 使用默认的 `npx wrangler deploy`。
+9. Root directory 留空。
+10. 保存并部署。
+
+首次部署前，你还需要在 Cloudflare 里创建资源并同步配置：
+
+1. 在 Cloudflare Dashboard 创建 D1 数据库 `cloudwarden-db`。
+2. 创建 R2 bucket `cloudwarden-attachments`。
+3. 将 D1 的 `database_id` 填入 `wrangler.toml` 后提交到 GitHub。
+4. 在 Worker 的 Settings/Variables 里添加 secret：`JWT_SECRET`、`ADMIN_TOKEN`。
+5. 执行 D1 迁移：
 
 ```bash
 npm run db:migrate:remote
 ```
 
-Cloudflare 的一键部署会读取 `wrangler.toml`，自动创建并绑定 D1/R2 等资源。后续你只要 push 到 GitHub，Cloudflare Workers Builds 就会自动重新构建部署。
+完成后，每次 push 到 `main`，Cloudflare Workers Builds 会自动构建并部署。
 
 ### 方式二：本地命令部署
 

@@ -2,6 +2,25 @@
 
 本文说明将 CloudWarden 部署到 Cloudflare Workers、D1 和 R2 的推荐流程。
 
+## 最简单的页面部署方式
+
+如果你希望主要通过页面点击部署，请使用 Cloudflare Workers 的 Git 集成：
+
+1. 打开 Cloudflare Dashboard。
+2. 进入 **Workers & Pages**。
+3. 点击 **Create application**。
+4. 选择 **Import a repository**。
+5. 授权 GitHub，并选择 `heywin/CloudWarden`。
+6. Worker 名称填写 `cloudwarden`。
+7. Build command 留空或填写 `npm run typecheck`。
+8. Deploy command 使用默认 `npx wrangler deploy`。
+9. Root directory 留空。
+10. 保存并部署。
+
+如果 Deploy to Cloudflare 按钮提示无法创建 Git 仓库，说明按钮的模板克隆流程失败。此时不要重试创建仓库，直接走上面的“Import a repository”流程。
+
+注意：Git 集成不会替你猜测 D1 数据库 ID。首次部署前仍需要创建 D1/R2，并把 D1 的 `database_id` 写入 `wrangler.toml` 后提交。
+
 ## 1. 登录 Cloudflare
 
 ```bash
