@@ -1,5 +1,7 @@
 # CloudWarden
 
+[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/heywin/CloudWarden)
+
 CloudWarden 是一个面向个人使用的 Bitwarden 兼容服务，运行在 Cloudflare Workers 上，并使用 D1 保存结构化数据、R2 保存附件对象。它实现了个人密码库的核心 API：注册、登录、刷新令牌、同步、文件夹、条目、附件、Send 和批量导入。
 
 ## 文档导航
@@ -26,6 +28,26 @@ CloudWarden 是一个面向个人使用的 Bitwarden 兼容服务，运行在 Cl
 - 不替代正式安全审计。
 
 ## 快速开始
+
+### 方式一：页面点击部署
+
+点击上方 **Deploy to Cloudflare** 按钮，然后按页面提示完成：
+
+1. 登录 Cloudflare。
+2. 授权 Cloudflare 访问 GitHub。
+3. 选择或创建要部署的仓库。
+4. 保持 Worker 名称为 `cloudwarden`。
+5. 填写 `JWT_SECRET` 和 `ADMIN_TOKEN`。
+6. 部署完成后，在 Cloudflare 控制台进入该 Worker，确认 D1 和 R2 绑定已创建。
+7. 如果 D1 迁移没有自动执行，在本地或 Cloudflare 控制台执行一次迁移：
+
+```bash
+npm run db:migrate:remote
+```
+
+Cloudflare 的一键部署会读取 `wrangler.toml`，自动创建并绑定 D1/R2 等资源。后续你只要 push 到 GitHub，Cloudflare Workers Builds 就会自动重新构建部署。
+
+### 方式二：本地命令部署
 
 安装依赖：
 
